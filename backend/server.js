@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("../frontend")); // frontendを公開
 
 app.post("/api/generate", async (req, res) => {
   const { grade, subject, unit, plan } = req.body;
