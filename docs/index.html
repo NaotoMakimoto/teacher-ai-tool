@@ -49,32 +49,51 @@
   <h2>提案結果：</h2>
   <pre id="result"></pre>
 
-  <script>
-    const form = document.getElementById('lesson-form');
-    const resultBox = document.getElementById('result');
+<script>
+  const form = document.getElementById('lesson-form');
+  const resultBox = document.getElementById('result');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  // ★ここを修正します。RenderでデプロイしたバックエンドのURLを正確に指定してください。
+  const BACKEND_BASE_URL = 'https://teacher-ai-tool.onrender.com';
 
-      const formData = new FormData(form);
-      const data = {
-        grade: formData.get('grade'),
-        subject: formData.get('subject'),
-        unit: formData.get('unit'),
-        plan: formData.get('plan'),
-      };
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      resultBox.textContent = "生成中...";
+    const formData = new FormData(form);
+    const data = {
+      grade: formData.get('grade'),
+      subject: formData.get('subject'),
+      unit: formData.get('unit'),
+      plan: formData.get('plan'),
+    };
 
-      const response = await fetch('/api/generate', {
+    resultBox.textContent = "生成中...";
+
+    try { // ★try-catchブロックを追加してエラーハンドリングを強化
+      const response = await fetch(`${BACKEND_BASE_URL}/api/generate`, { // ★URLを修正
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
+      // レスポンスが成功したか（ステータスコードが200番台か）を確認
+      if (!response.ok) {
+        // エラーレスポンスの場合、詳細をログに出し、ユーザーにエラーを通知
+        const errorText = await response.text(); // JSONではない可能性もあるため、テキストとして取得
+        console.error('APIレスポンスエラー:', response.status, errorText);
+        resultBox.textContent = `エラーが発生しました: ${response.status} ${response.statusText || ''} - ${errorText.substring(0, 100)}...`;
+        return; // これ以上処理を続けない
+      }
+
       const result = await response.json();
       resultBox.textContent = result.result || result.error;
-    });
-  </script>
+
+    } catch (error) {
+      // ネットワークエラーなど、fetch自体が失敗した場合
+      console.error('API呼び出しエラー:', error);
+      resultBox.textContent = `通信エラーが発生しました: ${error.message}`;
+    }
+  });
+</script>
 </body>
 </html>
