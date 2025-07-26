@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>授業AI活用提案ツール</title>
+</head>
+<body>
+  <h1>生成AI活用提案ツール</h1>
+
+  <form id="lesson-form">
+    <h3>学年</h3> 
+    <label><input type="radio" name="grade" value="小1" required>小1</label>
+    <label><input type="radio" name="grade" value="小2" required>小2</label>
+    <label><input type="radio" name="grade" value="小3" required>小3</label>
+    <label><input type="radio" name="grade" value="小4" required>小4</label>
+    <label><input type="radio" name="grade" value="小5" required>小5</label>
+    <label><input type="radio" name="grade" value="小6" required>小6</label>
+    <label><input type="radio" name="grade" value="中1" required>中1</label>
+    <label><input type="radio" name="grade" value="中2" required>中2</label>
+    <label><input type="radio" name="grade" value="中3" required>中3</label>
+    <br>
+    <h3>教科</h3>
+    <label><input type="radio" name="subject" value="国語" required>国語</label>
+    <label><input type="radio" name="subject" value="算数">算数</label>
+    <label><input type="radio" name="subject" value="数学">数学</label>
+    <label><input type="radio" name="subject" value="理科">理科</label>
+    <label><input type="radio" name="subject" value="社会">社会</label>
+    <label><input type="radio" name="subject" value="英語">英語</label>
+    <label><input type="radio" name="subject" value="音楽">音楽</label>
+    <label><input type="radio" name="subject" value="図工">図工</label>
+    <label><input type="radio" name="subject" value="美術">美術</label>
+    <label><input type="radio" name="subject" value="体育">体育</label>
+    <label><input type="radio" name="subject" value="家庭科">家庭科</label>
+    <label><input type="radio" name="subject" value="技術">技術</label>
+    <label><input type="radio" name="subject" value="道徳">道徳</label>
+    <label><input type="radio" name="subject" value="総合">総合的な学習の時間</label>
+    <label><input type="radio" name="subject" value="特別活動">特別活動</label>
+    <br>
+    <h3>単元</h3>
+    <label><input type="text" name="unit" required></label>
+    <br>
+    <h3>授業構想</h3>
+    <label>
+      <textarea name="plan" rows="5" cols="40" required></textarea>
+    </label><br><br>
+    <button type="submit">提案をもらう</button>
+  </form>
+
+  <h2>提案結果:</h2>
+  <pre id="result"></pre>
+
+  <script>
+    const form = document.getElementById('lesson-form');
+    const resultBox = document.getElementById('result');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = {
+        grade: formData.get('grade'),
+        subject: formData.get('subject'),
+        unit: formData.get('unit'),
+        plan: formData.get('plan'),
+      };
+
+      resultBox.textContent = "生成中...";
+
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      resultBox.textContent = result.result || result.error;
+    });
+  </script>
+</body>
+</html>
