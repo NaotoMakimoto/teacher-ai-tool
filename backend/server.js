@@ -54,4 +54,5 @@ app.listen(PORT, () => {
   console.log(`✅ サーバー起動: http://localhost:${PORT}`);
 });
 
-console.log("API Key:", process.env.OPENROUTER_API_KEY ? "Loaded" : "NOT FOUND");
+console.log("API Key Exists:", !!process.env.OPENROUTER_API_KEY);
+console.log("Authorization Header:", "Bearer " + process.env.OPENROUTER_API_KEY);
