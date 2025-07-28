@@ -53,3 +53,5 @@ app.post("/api/generate", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ サーバー起動: http://localhost:${PORT}`);
 });
+
+console.log("API Key:", process.env.OPENROUTER_API_KEY ? "Loaded" : "NOT FOUND");
