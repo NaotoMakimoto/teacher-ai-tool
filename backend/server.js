@@ -32,8 +32,7 @@ app.post("/api/generate", async (req, res) => {
     const response = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
       {
-        
-        model: "openai/gpt-3.5-turbo",
+        model: "deepseek/deepseek-chat-v3-0324:free",
         messages: [{ role: "user", content: prompt }],
       },
       {
@@ -56,4 +55,13 @@ app.listen(PORT, () => {
 });
 
 console.log("API Key Exists:", !!process.env.OPENROUTER_API_KEY);
-console.log("Authorization Header:", "Bearer " + process.env.OPENROUTER_API_KEY);
+
+const path = require("path");
+
+// 静的ファイルのルートを設定
+app.use(express.static(path.join(__dirname, "../")));  // ← 親フォルダを指定
+
+// ルートアクセス時に index.html を返す
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../docs/index.html"));
+});
