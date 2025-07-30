@@ -42,6 +42,10 @@
     <h3>授業構想</h3>
     <label>
       <textarea name="plan" rows="5" cols="40" required></textarea>
+    </label><br>
+     <h3>生徒の実態と思い</h3>
+    <label>
+      <textarea name="purpose" rows="5" cols="40" required></textarea>
     </label><br><br>
     <button type="submit">提案をもらう</button>
   </form>
@@ -53,7 +57,6 @@
   const form = document.getElementById('lesson-form');
   const resultBox = document.getElementById('result');
 
-  // ★ここを修正します。RenderでデプロイしたバックエンドのURLを正確に指定してください。
   const BACKEND_BASE_URL = 'https://teacher-ai-tool.onrender.com';
 
   form.addEventListener('submit', async (e) => {
@@ -69,20 +72,19 @@
 
     resultBox.textContent = "生成中...";
 
-    try { // ★try-catchブロックを追加してエラーハンドリングを強化
-      const response = await fetch(`${BACKEND_BASE_URL}/api/generate`, { // ★URLを修正
+    try { 
+      const response = await fetch(`${BACKEND_BASE_URL}/api/generate`, { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
-      // レスポンスが成功したか（ステータスコードが200番台か）を確認
+
       if (!response.ok) {
-        // エラーレスポンスの場合、詳細をログに出し、ユーザーにエラーを通知
-        const errorText = await response.text(); // JSONではない可能性もあるため、テキストとして取得
+        const errorText = await response.text(); 
         console.error('APIレスポンスエラー:', response.status, errorText);
         resultBox.textContent = `エラーが発生しました: ${response.status} ${response.statusText || ''} - ${errorText.substring(0, 100)}...`;
-        return; // これ以上処理を続けない
+        return; 
       }
 
       const result = await response.json();

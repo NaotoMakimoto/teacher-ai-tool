@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/api/generate", async (req, res) => {
-  const { grade, subject, unit, plan } = req.body;
+  const { grade, subject, unit, plan, purpose } = req.body;
   const prompt = `
   あなたは日本の小中学校の教員を支援する教育アドバイザーです。
   
@@ -21,6 +21,7 @@ app.post("/api/generate", async (req, res) => {
   - 教科: ${subject}
   - 単元: ${unit}
   - 授業構想: ${plan}
+  - 子どもの実態と授業への思い: ${purpose}
   
   この授業において、どの場面でどのように生成AI（例：ChatGPTなど）を活用できるか、具体的な場面・手順・注意点を箇条書きで3〜5個提案してください。
   
@@ -59,7 +60,7 @@ console.log("API Key Exists:", !!process.env.OPENROUTER_API_KEY);
 const path = require("path");
 
 // 静的ファイルのルートを設定
-app.use(express.static(path.join(__dirname, "../")));  // ← 親フォルダを指定
+app.use(express.static(path.join(__dirname, "../")));  
 
 // ルートアクセス時に index.html を返す
 app.get("/", (req, res) => {
