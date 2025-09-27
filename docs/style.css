@@ -1,0 +1,114 @@
+/* 全体レイアウト */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9fafb;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem 0 1rem;
+  color: #2563eb;
+}
+
+form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* セクション見出し */
+h3 {
+  margin-top: 1.5rem;
+  color: #1e293b;
+  border-left: 4px solid #2563eb;
+  padding-left: 0.5rem;
+}
+
+/* ラジオボタンを非表示にしてボタン化 */
+label input[type="radio"] {
+  display: none;
+}
+
+/* ラジオボタンのスタイル */
+label {
+  display: inline-block;
+  margin: 0.3rem;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #2563eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #2563eb;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  min-width: 80px;
+}
+
+/* hover時 */
+label:hover {
+  background: #f0f7ff;
+}
+
+/* 選択時 */
+label input[type="radio"]:checked + span,
+label:has(input[type="radio"]:checked) {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* テキスト入力・テキストエリア */
+input[type="text"], textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* ボタン */
+button {
+  display: block;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0.8rem;
+  background: #2563eb;
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+/* 提案結果 */
+h2 {
+  display: none; /* 初期非表示 */
+  text-align: center;
+  margin-top: 2rem;
+  color: #1e293b;
+}
+
+pre#result {
+  max-width: 800px;
+  margin: 1rem auto 3rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  white-space: pre-wrap;
+  line-height: 1.8; /* 行間を広げる */
+  font-size: 1rem;
+}
