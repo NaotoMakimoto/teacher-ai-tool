@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // 静的ファイルのルートを設定 
-app.use(express.static(path.join(__dirname, "../docs"))); 
+app.use(express.static(path.join(__dirname, "../docs")));
 
 // ルートアクセス時に index.html を返す
 app.get("/", (req, res) => {
