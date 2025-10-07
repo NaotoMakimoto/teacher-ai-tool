@@ -10,6 +10,10 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.post("/api/generate", async (req, res) => {
   const { grade, subject, unit, plan, purpose } = req.body;
   const prompt = `
