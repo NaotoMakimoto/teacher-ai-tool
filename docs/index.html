@@ -96,7 +96,6 @@
       resultBox.textContent = result.result || result.error;
 
     } catch (error) {
-      // ネットワークエラーなど、fetch自体が失敗した場合
       console.error('API呼び出しエラー:', error);
       resultBox.textContent = `通信エラーが発生しました: ${error.message}`;
     }

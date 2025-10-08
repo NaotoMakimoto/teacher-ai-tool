@@ -5,7 +5,6 @@ const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
-// 環境変数がない場合は 3001 を使用
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
@@ -36,7 +35,6 @@ app.post("/api/generate", async (req, res) => {
     const response = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
       {
-        // 安定性と品質のために 'openai/gpt-3.5-turbo' を使用
         model: "openai/gpt-3.5-turbo",
         messages: [
           // System Role: AIの役割と出力形式を厳しく定義し、構造化を強制
@@ -53,7 +51,6 @@ app.post("/api/generate", async (req, res) => {
             - **注意点**：安全面、個人情報の取り扱い、教師による確認など、AI活用における留意事項。
             `
           },
-          // User Role: 処理すべき具体的なタスクとデータ
           { role: "user", content: userPrompt },
         ],
       },
@@ -65,11 +62,9 @@ app.post("/api/generate", async (req, res) => {
       }
     );
 
-    // AIからの回答をそのままクライアントに返す
     res.json({ result: response.data.choices[0].message.content });
   } catch (error) {
     console.error("API Error:", error.message);
-    // エラーメッセージに 429 が含まれる場合は、レート制限の可能性を通知
     if (error.message && error.message.includes("429")) {
         res.status(500).json({ error: "生成AI APIの呼び出しに失敗しました。OpenRouterのプランをご確認ください。（ステータスコード: 429）" });
     } else {
