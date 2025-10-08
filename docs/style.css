@@ -112,3 +112,18 @@ pre#result {
   line-height: 1.8; /* 行間を広げる */
   font-size: 1rem;
 }
+
+/* フッター */
+footer {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      color: #333;
+      display: flex;
+      align-items: center;    
+      justify-content: center; 
+      font-size: 14px;
+      opacity: 0.9;
+      text-align: center;
+}

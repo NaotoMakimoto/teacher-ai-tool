@@ -3,10 +3,10 @@
 <head>
   <link rel="stylesheet" href="/docs/style.css">
   <meta charset="UTF-8">
-  <title>授業AI活用提案ツール</title>
+  <title>生成AI活用提案ツール（β版）</title>
 </head>
 <body>
-  <h1>生成AI活用提案ツール</h1>
+  <h1>生成AI活用提案ツール（β版）</h1>
 
   <form id="lesson-form">
     <h3>学年</h3> 
@@ -42,17 +42,21 @@
     <br>
     <h3>授業構想</h3>
     <label>
-      <textarea name="plan" rows="5" cols="40" required></textarea>
+      <textarea name="plan" rows="5" cols="50" required></textarea>
     </label><br>
      <h3>子どもの実態</h3>
     <label>
-      <textarea name="purpose" rows="5" cols="40"></textarea>
+      <textarea name="purpose" rows="5" cols="50"></textarea>
     </label><br><br>
     <button type="submit">提案をもらう</button>
   </form>
 
   <h2>提案結果：</h2>
   <pre id="result"></pre>
+
+  <footer>
+    © 2025 常葉大学 酒井研究室
+  </footer>
 
 <script>
   const form = document.getElementById('lesson-form');
